@@ -1,0 +1,51 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:settings="clr-namespace:Explorer"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="LeftColDefinition" />
+            <ColumnDefinition x:Name="SplitterColDefinition" Width="Auto" />
+            <ColumnDefinition x:Name="RightColDefinition"/>
+        </Grid.ColumnDefinitions>
+
+        <GridSplitter x:Name="GridSplitter" Background="Black" ResizeDirection="Columns" Grid.Column="1" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="2" />
+
+        <Grid Column="0">
+            <Button x:Name="ButtonRefresh" Content="Refresh All" HorizontalAlignment="Left, Stretch" Height="35" Margin="10,10,10,0" VerticalAlignment="Top" Width="Auto" Command="{Binding RefreshTree}"/>
+            <TreeView x:Name="TreeViewObjects" HorizontalAlignment="Left, Stretch" ItemsSource="{Binding Items}" VerticalAlignment="Top, Stretch" Margin="10,50,10,10">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                         <Setter Property="IsSelected" Value="{Binding IsSelected}" /> 
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
+                        <!-- display the toggle dropdown text -->
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=Header}" />
+                        <HierarchicalDataTemplate.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <TextBlock Text="{Binding Path=Header}"/>
+
+                            </DataTemplate>
+
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+
+        <Grid Column="2">
+            <Button x:Name="ButtonRefreshObject" Content="Refresh" Height="35" HorizontalAlignment="Left, Stretch" Width="Auto" VerticalAlignment="Top" Command="{Binding RefreshView}" Margin="10,10,10,0"/>
+            <Button x:Name="ButtonSave" Content="Save" HorizontalAlignment="Left, Stretch" VerticalAlignment="Bottom" Command="{Binding ExportSelected}" Margin="10,0,10,10" Width="Auto"/>
+            <ScrollViewer HorizontalAlignment="Left, Stretch" VerticalAlignment="Top, Stretch" Margin="10,50,10,45" >
+                <TextBox x:Name="TextBoxInfo" IsReadOnly="True" AcceptsReturn="True" TextWrapping="NoWrap" Text="{Binding SelectedObjectView}"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>
