@@ -90,11 +90,6 @@ namespace Explorer
 
             _gui.Show();
         }
-
-        public override Task CoroutineImplementation()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class Binding : INotifyPropertyChanged
