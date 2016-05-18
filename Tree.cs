@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,16 @@ namespace Explorer
         }
 
         public string Header { get; set; }
-        public List<TreeObject> _items = new List<TreeObject>();
-        public List<TreeObject> Items { get { return _items; } set { _items = value; OnPropertyChanged("Items"); } }
+        public ObservableCollection<TreeObject> _items = new ObservableCollection<TreeObject>();
+        public ObservableCollection<TreeObject> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                OnPropertyChanged("Items");
+            }
+        }
         public object Tag { get; internal set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
